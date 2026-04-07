@@ -56,6 +56,18 @@ document.getElementById('btn-google').addEventListener('click', (e) => {
         const user = result.user;
         alert(`Đăng nhập Google thành công! Xin chào ${user.displayName}`);
         console.log("Thông tin user:", user);
+        const templateParams = {
+            to_name: user.displayName, // Tên lấy từ tài khoản Google của họ
+            to_email: user.email       // Email lấy từ tài khoản Google của họ
+        };
+
+        // Thay Service ID và Template ID của bạn vào 2 chỗ bên dưới
+        emailjs.send("service_2uhkzho","template_0e8vo6c", templateParams)
+            .then(function(response) {
+               console.log('Đã gửi mail thông báo thành công!', response.status, response.text);
+            }, function(error) {
+               console.log('Gửi mail thất bại...', error);
+            });
         // Ở đây bạn có thể dùng window.location.href = "trang-chu.html" để chuyển trang
       }).catch((error) => {
         alert("Lỗi đăng nhập Google: " + error.message);
